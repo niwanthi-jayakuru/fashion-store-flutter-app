@@ -4,8 +4,10 @@ class ProductListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Products')),
-      body: Center(child: Text('Product List')),
+      appBar: AppBar(title: const Text('Products')),
+      body: const Center(
+        child: Text('Simple classic products screen'),
+      ),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 // Screens
 import 'screens/login_screen.dart';
@@ -11,11 +12,12 @@ import 'screens/cart_screen.dart';
 import 'screens/checkout_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/order_history_screen.dart';
+import 'screens/seeder_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(); // 🔥 Initialize Firebase
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(const MyApp());
 }
@@ -29,10 +31,25 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Fashion Store',
 
-      // 🎨 Theme
+      // 🎨 Simple classic theme
       theme: ThemeData(
-        primarySwatch: Colors.pink,
-        useMaterial3: true,
+        primaryColor: Colors.blueGrey,
+        primarySwatch: Colors.blueGrey,
+        brightness: Brightness.light,
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+          centerTitle: true,
+          elevation: 1,
+          backgroundColor: Colors.blueGrey,
+          titleTextStyle: TextStyle(
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        textTheme: const TextTheme(
+          headlineMedium: TextStyle(
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+          bodyMedium: TextStyle(fontSize: 16, color: Colors.black87),
+        ),
+        useMaterial3: false,
       ),
 
       initialRoute: '/login',
@@ -47,6 +64,7 @@ class MyApp extends StatelessWidget {
         '/checkout': (context) => CheckoutScreen(),
         '/profile': (context) => ProfileScreen(),
         '/orderHistory': (context) => OrderHistoryScreen(),
+        '/seeder': (context) => const SeederScreen(),
       },
     );
   }

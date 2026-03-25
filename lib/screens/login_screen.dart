@@ -18,44 +18,32 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 50),
-
               const Text(
                 "Welcome Back 👋",
                 style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
-
               const SizedBox(height: 30),
-
-
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
                   labelText: "Email",
-                  prefixIcon: const Icon(Icons.email),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(6),
                   ),
                 ),
               ),
-
               const SizedBox(height: 20),
-
-            
               TextField(
                 controller: passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: "Password",
-                  prefixIcon: const Icon(Icons.lock),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(6),
                   ),
                 ),
               ),
-
               const SizedBox(height: 30),
-
-          
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -79,9 +67,7 @@ class LoginScreen extends StatelessWidget {
                   child: const Text("Login"),
                 ),
               ),
-
               const SizedBox(height: 10),
-
               TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/register');

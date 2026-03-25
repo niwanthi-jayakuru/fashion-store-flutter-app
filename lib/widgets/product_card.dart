@@ -8,18 +8,28 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, '/details', arguments: product);
-      },
-      child: Card(
-        child: Column(
-          children: [
-            Expanded(child: Image.asset(product.image)),
-            Text(product.name),
-            Text("Rs. ${product.price}"),
-          ],
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      leading: SizedBox(
+        width: 55,
+        height: 55,
+        child: Image.network(
+          product.image,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) =>
+              const Icon(Icons.image_not_supported),
         ),
+      ),
+      title: Text(product.name, maxLines: 1, overflow: TextOverflow.ellipsis),
+      subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
+      onTap: () =>
+          Navigator.pushNamed(context, '/productDetails', arguments: product),
+      trailing: IconButton(
+        icon: const Icon(Icons.add),
+        onPressed: () {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Added ${product.name} to cart')));
+        },
       ),
     );
   }
