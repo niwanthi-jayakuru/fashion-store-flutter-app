@@ -10,6 +10,7 @@ import 'screens/product_details.dart';
 import 'screens/cart_screen.dart';
 import 'screens/checkout_screen.dart';
 import 'screens/profile_screen.dart';
+import 'screens/order_history_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,9 +29,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Fashion Store',
 
-      // 🎨 Theme (optional but looks better)
+      // 🎨 Theme
       theme: ThemeData(
         primarySwatch: Colors.pink,
+        useMaterial3: true,
       ),
 
       initialRoute: '/login',
@@ -44,6 +46,7 @@ class MyApp extends StatelessWidget {
         '/cart': (context) => CartScreen(),
         '/checkout': (context) => CheckoutScreen(),
         '/profile': (context) => ProfileScreen(),
+        '/orderHistory': (context) => OrderHistoryScreen(),
       },
     );
   }
