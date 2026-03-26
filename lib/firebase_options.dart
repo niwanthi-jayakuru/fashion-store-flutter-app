@@ -38,7 +38,7 @@ class DefaultFirebaseOptions {
         );
       default:
         throw UnsupportedError(
-          'DefaultFirebaseOptions are not supported for this platform.',
+          'DefaultFirebaseOptions are not supported for this platform. sadasd',
         );
     }
   }
@@ -78,7 +78,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'fashion-store-15952.firebasestorage.app',
     iosBundleId: 'com.example.fashionStore',
   );
-
 }
 
   // "type": "service_account",

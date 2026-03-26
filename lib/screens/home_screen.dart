@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/firebase_service.dart';
+import '../services/cart_service.dart';
 import '../models/product.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final FirebaseService service = FirebaseService();
+  final CartService _cartService = CartService();
   String? _selectedCategory;
   List<String> _categories = [];
 
@@ -143,11 +145,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       trailing: IconButton(
                         icon: const Icon(Icons.add_shopping_cart),
                         onPressed: () {
+                          _cartService.addToCart(product);
                           final snack = SnackBar(
                               content: Text('Added ${product.name} to cart'));
                           ScaffoldMessenger.of(context).showSnackBar(snack);
-                          // keep existing service for add if desired
-                          // CartService().addToCart(product);
                         },
                       ),
                     );

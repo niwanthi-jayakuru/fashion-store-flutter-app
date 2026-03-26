@@ -4,6 +4,8 @@ import '../services/firebase_service.dart';
 import '../services/auth_service.dart';
 
 class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
+
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
@@ -43,6 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
 
     if (success) {
+      if (!mounted) return;
       setState(() => _isEditing = false);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -51,6 +54,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       );
     } else {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("❌ Failed to update profile"),
@@ -62,6 +66,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void _logout() async {
     await _authService.logout();
+    if (!mounted) return;
     Navigator.pushReplacementNamed(context, '/login');
   }
 
@@ -193,6 +198,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Navigator.pushNamed(context, '/orderHistory');
                 },
                 child: const Text("View Order History"),
+              ),
+            ),
+            const SizedBox(height: 12),
+            // Seeder Button (for demo / assignment)
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/seeder');
+                },
+                child: const Text("Seeder (Admin)"),
               ),
             ),
             const SizedBox(height: 12),

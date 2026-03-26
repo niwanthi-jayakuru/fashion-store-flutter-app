@@ -3,6 +3,8 @@ import '../models/product.dart';
 import '../services/cart_service.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
+  const ProductDetailsScreen({super.key});
+
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
@@ -164,9 +166,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             duration: const Duration(seconds: 2),
                           ),
                         );
-                        Future.delayed(const Duration(milliseconds: 500), () {
-                          Navigator.pop(context);
-                        });
+                        if (!mounted) return;
+                        Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),

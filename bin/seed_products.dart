@@ -33,13 +33,13 @@ final List<Map<String, dynamic>> sampleProducts = [
     'stock': 40,
   },
   {
-    'name': 'Summer Floral Dress',
+    'name': 'Summer Dress',
     'price': 49.99,
     'category': 'Dresses',
     'image':
         'https://images.unsplash.com/photo-1595777712802-eebf6d2e6c7f?w=400',
     'description': 'Beautiful floral dress perfect for summer outings',
-    'rating': 4.7,
+    'rating': 4.6,
     'stock': 25,
   },
   {

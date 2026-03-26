@@ -4,6 +4,12 @@ import '../services/firebase_service.dart';
 class OrderHistoryScreen extends StatelessWidget {
   final FirebaseService _firebaseService = FirebaseService();
 
+  Map<String, dynamic> _asStringKeyMap(dynamic value) {
+    if (value is Map<String, dynamic>) return value;
+    if (value is Map) return value.map((k, v) => MapEntry(k.toString(), v));
+    return const {};
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +58,7 @@ class OrderHistoryScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               final order = orders[index];
               final items = order['items'] as List<dynamic>? ?? [];
-              final total = order['total'] ?? 0;
+              final total = (order['total'] as num?)?.toDouble() ?? 0.0;
               final status = order['status'] ?? 'Unknown';
 
               return Card(
@@ -84,7 +90,18 @@ class OrderHistoryScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           ...items.map((item) {
-                            final itemData = item as Map<String, dynamic>;
+                            final itemData = _asStringKeyMap(item);
+                            final quantity =
+                                (itemData['quantity'] as num?)?.toInt() ?? 1;
+                            final product =
+                                _asStringKeyMap(itemData['product']);
+                            final name =
+                                (product['name'] ?? itemData['name'] ?? '')
+                                    .toString();
+                            final price =
+                                (product['price'] as num?)?.toDouble() ??
+                                    (itemData['price'] as num?)?.toDouble() ??
+                                    0.0;
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 4),
                               child: Row(
@@ -93,10 +110,10 @@ class OrderHistoryScreen extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                        "${itemData['name']} x${itemData['quantity']}"),
+                                        "$name x$quantity"),
                                   ),
                                   Text(
-                                    "\$${(itemData['price'] * itemData['quantity']).toStringAsFixed(2)}",
+                                    "\$${(price * quantity).toStringAsFixed(2)}",
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w600),
                                   ),

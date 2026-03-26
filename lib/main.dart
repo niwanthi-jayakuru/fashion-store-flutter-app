@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
+import 'services/cart_service.dart';
 
 // Screens
 import 'screens/login_screen.dart';
@@ -18,6 +20,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await CartService().init();
 
   runApp(const MyApp());
 }
@@ -52,8 +55,6 @@ class MyApp extends StatelessWidget {
         useMaterial3: false,
       ),
 
-      initialRoute: '/login',
-
       routes: {
         '/login': (context) => LoginScreen(),
         '/register': (context) => RegisterScreen(),
@@ -65,6 +66,29 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => ProfileScreen(),
         '/orderHistory': (context) => OrderHistoryScreen(),
         '/seeder': (context) => const SeederScreen(),
+      },
+      home: const AuthGate(),
+    );
+  }
+}
+
+class AuthGate extends StatelessWidget {
+  const AuthGate({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
+
+        final user = snapshot.data;
+        if (user == null) return LoginScreen();
+        return HomeScreen();
       },
     );
   }

@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../services/cart_service.dart';
 
 class CheckoutScreen extends StatefulWidget {
+  const CheckoutScreen({super.key});
+
   @override
   State<CheckoutScreen> createState() => _CheckoutScreenState();
 }
@@ -36,6 +38,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         phone: phoneController.text.trim(),
       );
 
+      if (!mounted) return;
+
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -44,12 +48,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           ),
         );
         Future.delayed(const Duration(seconds: 2), () {
+          if (!mounted) return;
           Navigator.pushReplacementNamed(context, '/home');
         });
       } else {
         throw Exception('Failed to place order');
       }
     } catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("❌ Error: $e"),
@@ -57,7 +63,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         ),
       );
     } finally {
-      setState(() => _isLoading = false);
+      if (mounted) setState(() => _isLoading = false);
     }
   }
 

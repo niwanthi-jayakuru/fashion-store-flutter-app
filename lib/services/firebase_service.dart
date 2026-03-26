@@ -6,6 +6,24 @@ class FirebaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  Future<void> ensureUserDoc() async {
+    final user = _auth.currentUser;
+    if (user == null) return;
+
+    final ref = _db.collection('users').doc(user.uid);
+    final snap = await ref.get();
+    if (snap.exists) return;
+
+    await ref.set({
+      'displayName': user.displayName ?? '',
+      'email': user.email,
+      'phone': '',
+      'address': '',
+      'createdAt': FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
+  }
+
   // Get all products
   Future<List<Product>> getProducts() async {
     try {
