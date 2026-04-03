@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/firebase_service.dart';
 import '../models/product.dart';
+import '../widgets/product_image.dart';
 
 class ProductListScreen extends StatelessWidget {
   final FirebaseService _firebaseService = FirebaseService();
@@ -34,11 +35,10 @@ class ProductListScreen extends StatelessWidget {
               return Card(
                 margin: const EdgeInsets.symmetric(vertical: 8),
                 child: ListTile(
-                  leading: Image.network(
-                    product.image,
+                  leading: ProductImage(
+                    product: product,
                     width: 60,
                     height: 60,
-                    fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) =>
                         const Icon(Icons.image),
                   ),

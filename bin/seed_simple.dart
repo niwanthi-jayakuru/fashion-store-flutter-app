@@ -20,11 +20,37 @@ void main(List<String> args) async {
       print('🌱 Seeding sample products...\n');
       
       final products = [
-        {'name': 'Classic White T-Shirt', 'price': 29.99, 'category': 'Shirts'},
-        {'name': 'Denim Jeans Blue', 'price': 59.99, 'category': 'Pants'},
-        {'name': 'Black Casual Hoodie', 'price': 54.99, 'category': 'Hoodies'},
-        {'name': 'Summer Floral Dress', 'price': 49.99, 'category': 'Dresses'},
-        {'name': 'Leather Jacket', 'price': 149.99, 'category': 'Jackets'},
+        {
+          'name': 'Classic White T-Shirt',
+          'price': 29.99,
+          'category': 'Shirts',
+          'image':
+              'https://picsum.photos/seed/classic-white-tshirt/400/400',
+        },
+        {
+          'name': 'Denim Jeans Blue',
+          'price': 59.99,
+          'category': 'Pants',
+          'image': 'https://picsum.photos/seed/denim-jeans-blue/400/400',
+        },
+        {
+          'name': 'Black Casual Hoodie',
+          'price': 54.99,
+          'category': 'Hoodies',
+          'image': 'https://picsum.photos/seed/black-casual-hoodie/400/400',
+        },
+        {
+          'name': 'Summer Floral Dress',
+          'price': 49.99,
+          'category': 'Dresses',
+          'image': 'https://picsum.photos/seed/summer-floral-dress/400/400',
+        },
+        {
+          'name': 'Leather Jacket',
+          'price': 149.99,
+          'category': 'Jackets',
+          'image': 'https://picsum.photos/seed/leather-jacket/400/400',
+        },
       ];
 
       for (var product in products) {

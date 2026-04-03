@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../services/firebase_service.dart';
 import '../services/cart_service.dart';
 import '../models/product.dart';
+import '../widgets/product_image.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -128,12 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       leading: SizedBox(
                         width: 58,
                         height: 58,
-                        child: Image.network(
-                          product.image,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) =>
-                              const Icon(Icons.image_not_supported),
-                        ),
+                        child: ProductImage(product: product),
                       ),
                       title: Text(product.name,
                           maxLines: 1, overflow: TextOverflow.ellipsis),

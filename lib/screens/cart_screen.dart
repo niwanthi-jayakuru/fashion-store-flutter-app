@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/cart_service.dart';
+import '../widgets/product_image.dart';
 
 class CartScreen extends StatefulWidget {
   @override
@@ -48,51 +49,49 @@ class _CartScreenState extends State<CartScreen> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 5),
                         child: ListTile(
-                          leading: Image.network(
-                            item.product.image,
+                          leading: ProductImage(
+                            product: item.product,
                             width: 60,
                             height: 60,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                const Icon(Icons.image_not_supported),
                           ),
-                          title: Text(item.product.name),
+                          title: Text(
+                            item.product.name,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                           subtitle: Text(
                               "\$${item.product.price.toStringAsFixed(2)}"),
-                          trailing: SizedBox(
-                            width: 100,
-                            child: Row(
-                              children: [
-                                IconButton(
-                                  icon: const Icon(Icons.remove),
-                                  onPressed: () {
-                                    if (item.quantity > 1) {
-                                      _cartService.updateQuantity(
-                                          item.product.id, item.quantity - 1);
-                                      setState(() {});
-                                    }
-                                  },
-                                ),
-                                Text(item.quantity.toString()),
-                                IconButton(
-                                  icon: const Icon(Icons.add),
-                                  onPressed: () {
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.remove),
+                                onPressed: () {
+                                  if (item.quantity > 1) {
                                     _cartService.updateQuantity(
-                                        item.product.id, item.quantity + 1);
+                                        item.product.id, item.quantity - 1);
                                     setState(() {});
-                                  },
-                                ),
-                                IconButton(
-                                  icon: const Icon(Icons.delete,
-                                      color: Colors.red),
-                                  onPressed: () {
-                                    _cartService
-                                        .removeFromCart(item.product.id);
-                                    setState(() {});
-                                  },
-                                ),
-                              ],
-                            ),
+                                  }
+                                },
+                              ),
+                              Text(item.quantity.toString()),
+                              IconButton(
+                                icon: const Icon(Icons.add),
+                                onPressed: () {
+                                  _cartService.updateQuantity(
+                                      item.product.id, item.quantity + 1);
+                                  setState(() {});
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.delete,
+                                    color: Colors.red),
+                                onPressed: () {
+                                  _cartService.removeFromCart(item.product.id);
+                                  setState(() {});
+                                },
+                              ),
+                            ],
                           ),
                         ),
                       );

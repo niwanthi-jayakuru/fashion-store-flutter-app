@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/product.dart';
 import '../services/cart_service.dart';
+import '../widgets/product_image.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   const ProductDetailsScreen({super.key});
@@ -35,8 +36,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               height: 300,
               width: double.infinity,
               color: Colors.grey[200],
-              child: Image.network(
-                product.image,
+              child: ProductImage(
+                product: product,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) => const Center(
                   child: Icon(Icons.image_not_supported, size: 80),

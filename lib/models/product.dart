@@ -17,6 +17,28 @@ class Product {
     this.description = '',
   });
 
+  /// URL used for [Image.network]. When Firestore has no `image` (common if
+  /// products were seeded without that field), uses a stable placeholder.
+  String get displayImageUrl {
+    final u = image.trim();
+    if (u.isEmpty) {
+      final seed = id.isNotEmpty ? id : 'p${name.hashCode}';
+      return 'https://picsum.photos/seed/${Uri.encodeComponent(seed)}/400/400';
+    }
+    return u;
+  }
+
+  /// Some CDNs (e.g. Unsplash) expect a referer when loading from the browser.
+  static Map<String, String>? networkHeadersFor(String url) {
+    try {
+      final host = Uri.parse(url).host.toLowerCase();
+      if (host.contains('unsplash.com')) {
+        return {'Referer': 'https://unsplash.com/'};
+      }
+    } catch (_) {}
+    return null;
+  }
+
   factory Product.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
     return Product(

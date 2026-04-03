@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/product.dart';
+import 'product_image.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -13,12 +14,7 @@ class ProductCard extends StatelessWidget {
       leading: SizedBox(
         width: 55,
         height: 55,
-        child: Image.network(
-          product.image,
-          fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) =>
-              const Icon(Icons.image_not_supported),
-        ),
+        child: ProductImage(product: product),
       ),
       title: Text(product.name, maxLines: 1, overflow: TextOverflow.ellipsis),
       subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
