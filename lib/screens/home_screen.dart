@@ -30,6 +30,89 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  /// First few catalog items when browsing “All” (no category filter).
+  Widget _buildFeaturedRow(BuildContext context, List<Product> products) {
+    final featured = products.take(4).toList();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12),
+          child: Text(
+            'Featured',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: 188,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            itemCount: featured.length,
+            separatorBuilder: (_, __) => const SizedBox(width: 12),
+            itemBuilder: (context, index) {
+              final product = featured[index];
+              return SizedBox(
+                width: 140,
+                child: Card(
+                  clipBehavior: Clip.antiAlias,
+                  elevation: 2,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/productDetails',
+                          arguments: product);
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          height: 110,
+                          child: ProductImage(
+                            product: product,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                product.name,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                '\$${product.price.toStringAsFixed(2)}',
+                                style: TextStyle(
+                                  color: Colors.pink[400],
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        const SizedBox(height: 8),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,6 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
           }
 
           final products = snapshot.data!;
+          final showFeatured = _selectedCategory == null && products.isNotEmpty;
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,16 +186,30 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           );
-                        }).toList(),
+                        }),
                       ],
                     ),
                   ),
                 ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12),
-                child: Text('Products',
-                    style:
-                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              if (showFeatured) _buildFeaturedRow(context, products),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Row(
+                  children: [
+                    const Expanded(
+                      child: Text(
+                        'Products',
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pushNamed(context, '/products'),
+                      child: const Text('See all products'),
+                    ),
+                  ],
+                ),
               ),
               const Divider(height: 12, thickness: 1),
               Expanded(
@@ -123,6 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (context, index) {
                     final product = products[index];
                     return ListTile(
+                      mouseCursor: SystemMouseCursors.basic,
                       tileColor: Colors.grey[100],
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8)),
@@ -139,6 +238,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             arguments: product);
                       },
                       trailing: IconButton(
+                        mouseCursor: SystemMouseCursors.basic,
                         icon: const Icon(Icons.add_shopping_cart),
                         onPressed: () {
                           _cartService.addToCart(product);

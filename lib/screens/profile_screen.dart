@@ -201,17 +201,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             const SizedBox(height: 12),
-            // Seeder Button (for demo / assignment)
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/seeder');
-                },
-                child: const Text("Seeder (Admin)"),
-              ),
-            ),
-            const SizedBox(height: 12),
             // Logout Button
             SizedBox(
               width: double.infinity,
