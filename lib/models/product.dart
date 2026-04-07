@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class Product {
   final String id;
@@ -28,8 +29,10 @@ class Product {
     return u;
   }
 
-  /// Some CDNs (e.g. Unsplash) expect a referer when loading from the browser.
+  /// Some CDNs (e.g. Unsplash) work better with a Referer on mobile/desktop.
+  /// On web, browsers refuse custom `Referer` (unsafe header) — omit headers there.
   static Map<String, String>? networkHeadersFor(String url) {
+    if (kIsWeb) return null;
     try {
       final host = Uri.parse(url).host.toLowerCase();
       if (host.contains('unsplash.com')) {
