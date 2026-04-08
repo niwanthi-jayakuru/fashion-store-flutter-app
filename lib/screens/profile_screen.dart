@@ -90,7 +90,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            // Profile Avatar
             CircleAvatar(
               radius: 50,
               backgroundColor: Colors.pink[100],
@@ -101,13 +100,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            // Email (non-editable)
             Text(
               user?.email ?? 'No email',
               style: const TextStyle(fontSize: 16, color: Colors.grey),
             ),
             const SizedBox(height: 32),
-            // Form Fields
             if (_isEditing)
               Column(
                 children: [
@@ -190,7 +187,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
             const SizedBox(height: 32),
-            // Order History Button
             SizedBox(
               width: double.infinity,
               child: OutlinedButton(
@@ -201,7 +197,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             const SizedBox(height: 12),
-            // Logout Button
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(

@@ -84,7 +84,6 @@ class CartService {
 
   Future<void> _persist() async {
     if (!_isInitialized) {
-      // If init wasn't called explicitly, do a best-effort init before saving.
       await init();
     }
     final prefs = await SharedPreferences.getInstance();
@@ -92,7 +91,6 @@ class CartService {
     await prefs.setString(_storageKey, jsonEncode(list));
   }
 
-  // Add or update product in cart
   void addToCart(Product product, {int quantity = 1}) {
     if (_cartItems.containsKey(product.id)) {
       _cartItems[product.id]!.quantity += quantity;
@@ -102,13 +100,11 @@ class CartService {
     _persist();
   }
 
-  // Remove product from cart
   void removeFromCart(String productId) {
     _cartItems.remove(productId);
     _persist();
   }
 
-  // Update quantity
   void updateQuantity(String productId, int quantity) {
     if (quantity <= 0) {
       removeFromCart(productId);
@@ -118,26 +114,20 @@ class CartService {
     }
   }
 
-  // Get all cart items
   List<CartItem> getCartItems() => _cartItems.values.toList();
 
-  // Get cart total
   double getCartTotal() =>
       _cartItems.values.fold(0, (sum, item) => sum + item.subtotal);
 
-  // Get item count
   int getItemCount() => _cartItems.length;
 
-  // Clear cart
   void clearCart() {
     _cartItems.clear();
     _persist();
   }
 
-  // Check if product in cart
   bool isInCart(String productId) => _cartItems.containsKey(productId);
 
-  // Place order (save to Firestore)
   Future<bool> placeOrder({
     required String userId,
     required String address,
