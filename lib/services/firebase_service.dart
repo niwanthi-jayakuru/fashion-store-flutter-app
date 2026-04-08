@@ -24,7 +24,6 @@ class FirebaseService {
     }, SetOptions(merge: true));
   }
 
-  // Get all products
   Future<List<Product>> getProducts() async {
     try {
       final snapshot = await _db.collection('products').get();
@@ -35,7 +34,6 @@ class FirebaseService {
     }
   }
 
-  // Get products by category
   Future<List<Product>> getProductsByCategory(String category) async {
     try {
       final snapshot = await _db
@@ -49,7 +47,6 @@ class FirebaseService {
     }
   }
 
-  // Get all categories
   Future<List<String>> getCategories() async {
     try {
       final snapshot = await _db.collection('products').get();
@@ -65,7 +62,6 @@ class FirebaseService {
     }
   }
 
-  // Get orders for current user
   Future<List<Map<String, dynamic>>> getOrderHistory() async {
     try {
       final user = _auth.currentUser;
@@ -84,7 +80,6 @@ class FirebaseService {
     }
   }
 
-  // Update user profile
   Future<bool> updateUserProfile({
     required String displayName,
     required String phone,
@@ -110,7 +105,6 @@ class FirebaseService {
     }
   }
 
-  // Get user profile
   Future<Map<String, dynamic>?> getUserProfile() async {
     try {
       final user = _auth.currentUser;

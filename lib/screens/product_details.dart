@@ -39,7 +39,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Product Image
             Container(
               height: 300,
               width: double.infinity,
@@ -110,13 +109,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ],
               ),
             ),
-            // Product Details
             Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Name & Price
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -138,7 +135,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  // Category
                   Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
@@ -156,7 +152,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  // Description
                   Text(
                     "Description",
                     style: Theme.of(context).textTheme.titleMedium,
@@ -169,7 +164,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     style: const TextStyle(fontSize: 14, height: 1.6),
                   ),
                   const SizedBox(height: 32),
-                  // Quantity Selector
                   Row(
                     children: [
                       const Text(
@@ -208,7 +202,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ],
                   ),
                   const SizedBox(height: 32),
-                  // Add to Cart Button
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(

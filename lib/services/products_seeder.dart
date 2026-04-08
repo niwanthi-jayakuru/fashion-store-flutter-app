@@ -108,7 +108,6 @@ class ProductsSeeder {
     },
   ];
 
-  /// Seeds the database with sample products
   static Future<void> seedProducts() async {
     try {
       print('Starting to seed products...');
@@ -125,14 +124,12 @@ class ProductsSeeder {
         });
         count++;
 
-        // Firestore has a limit of 500 operations per batch
         if (count % 500 == 0) {
           await batch.commit();
           batch = _db.batch();
         }
       }
 
-      // Commit any remaining operations
       if (count % 500 != 0) {
         await batch.commit();
       }
@@ -144,7 +141,6 @@ class ProductsSeeder {
     }
   }
 
-  /// Clears all products from the database (use with caution!)
   static Future<void> clearProducts() async {
     try {
       print('Clearing all products...');

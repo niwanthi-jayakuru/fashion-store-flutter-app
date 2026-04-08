@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/product.dart';
 
-/// Network image for a [Product], using [Product.displayImageUrl] and CDN headers.
 class ProductImage extends StatelessWidget {
   const ProductImage({
     super.key,

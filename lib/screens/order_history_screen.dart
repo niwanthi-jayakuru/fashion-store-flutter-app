@@ -17,19 +17,16 @@ class OrderHistoryScreen extends StatelessWidget {
       body: FutureBuilder<List<Map<String, dynamic>>>(
         future: _firebaseService.getOrderHistory(),
         builder: (context, snapshot) {
-          // Loading
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          // Error
           if (snapshot.hasError) {
             return Center(
               child: Text("Error: ${snapshot.error}"),
             );
           }
 
-          // Empty
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(
               child: Column(

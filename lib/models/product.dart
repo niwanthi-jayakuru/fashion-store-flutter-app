@@ -18,8 +18,7 @@ class Product {
     this.description = '',
   });
 
-  /// URL used for [Image.network]. When Firestore has no `image` (common if
-  /// products were seeded without that field), uses a stable placeholder.
+
   String get displayImageUrl {
     final u = image.trim();
     if (u.isEmpty) {
@@ -29,8 +28,6 @@ class Product {
     return u;
   }
 
-  /// Some CDNs (e.g. Unsplash) work better with a Referer on mobile/desktop.
-  /// On web, browsers refuse custom `Referer` (unsafe header) — omit headers there.
   static Map<String, String>? networkHeadersFor(String url) {
     if (kIsWeb) return null;
     try {
